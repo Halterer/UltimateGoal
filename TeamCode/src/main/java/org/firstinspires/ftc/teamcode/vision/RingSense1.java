@@ -64,6 +64,7 @@ public class RingSense1 extends LinearOpMode
     public DcMotor Shooter    = null;
     public Servo ShootAngle = null;
     public Servo   ShooterArm = null;
+    public DcMotor Intake     = null;
     double WHEEL_CIRCUMFERENCE = 3.78;
     double ENCODER_TICKS_PER_ROTATION = 537.6;
 
@@ -80,6 +81,7 @@ public class RingSense1 extends LinearOpMode
         LeftFront  = hardwareMap.dcMotor.get(" FrontLeft  ");
         RightFront = hardwareMap.dcMotor.get(" FrontRight ");
         RightRear  = hardwareMap.dcMotor.get(" BackRight  ");
+        Intake      = hardwareMap.dcMotor.get ( "Intake      ");
         Shooter     = hardwareMap.dcMotor.get ( "Shooter     ");
         ShooterArm  = hardwareMap.servo.get   ( "ShooterArm  ");
         ShootAngle  = hardwareMap.servo.get   ( "ShooterAngle");
@@ -91,6 +93,7 @@ public class RingSense1 extends LinearOpMode
         RightFront.setDirection (DcMotorSimple.Direction.REVERSE);
         RightRear .setDirection (DcMotorSimple.Direction.REVERSE);
         Shooter   .setDirection (DcMotorSimple.Direction.REVERSE);
+        Intake    .setDirection (DcMotorSimple.Direction.REVERSE);
 
 //------------------------------Encoder---------------------------------------------------------\\
 
@@ -166,6 +169,7 @@ public class RingSense1 extends LinearOpMode
 
 
 
+
         if (pipeline.getAnalysis()>pipeline.FOUR_RING_THRESHOLD)
         {
 
@@ -176,18 +180,19 @@ public class RingSense1 extends LinearOpMode
 
 
             //drives off wall
-            ShootAngle.setPosition(.72);
-            Drive(5,-.3);
+            ShootAngle.setPosition(.714);
+            Drive(5,-.6);
             //strafes to line up with 4
-            Strafe(20,-.3);
+            Strafe(20,-.6);
             sleep(1000);
             //drives down to square
-            Drive(90,-.3);
+            Drive(100,-.6);
             //drives to shoot line
-            Drive(30,.3);
+            Drive(22,.6);
             sleep(500);
             //strafe to shoot
-            Strafe(23,.3);
+            Strafe(24,.6);
+            Drive(26 , .6);
             Shooter.setPower(1);
             sleep(1000);
             ShooterArm.setPosition(0);
@@ -206,8 +211,47 @@ public class RingSense1 extends LinearOpMode
             ShooterArm.setPosition(0);
             sleep(500);
             Shooter.setPower(0);
-
+            ShooterArm.setPosition(.259);
             sleep(500);
+            Drive(11,-.6);
+
+
+
+
+
+            /*
+            ShootAngle.setPosition(1);
+            sleep(500);
+            Intake.setPower(1);
+            Drive(7,.6);
+            sleep(1000);
+            ShootAngle.setPosition(.70);
+            sleep(500);
+            Drive(5,.4);
+            sleep(500);
+            Shooter.setPower(1);
+            sleep(1000);
+            Intake.setPower(0);
+            ShooterArm.setPosition(0);
+            sleep(500);
+            ShooterArm.setPosition(.259);
+            sleep(500);
+            ShooterArm.setPosition(0);
+            sleep(500);
+            ShooterArm.setPosition(.259);
+            ShooterArm.setPosition(0);
+            sleep(500);
+            ShooterArm.setPosition(.259);
+            Drive(25,-.6);
+            Shooter.setPower(0);*/
+
+
+
+
+
+
+
+
             /*Drive(10,.3);
             rotate(165,.3);
             Strafe(3,.3);
@@ -232,10 +276,60 @@ public class RingSense1 extends LinearOpMode
             telemetry.addData("square","middle ");
             telemetry.addData("Rings", "One");
             telemetry.update();
-            Strafe(20,-.1);
-            Drive (64,-.2);
-            Strafe(24,.1);
-            Drive(20,-.2);
+
+
+            ShootAngle.setPosition(.71);
+            Drive(5,-.6);
+            Strafe(20,-.6);
+            Drive (71 ,-.6);
+            sleep(500);
+            Strafe(21.5, .6);
+            Drive(20, .6);
+            Shooter.setPower(1);
+            sleep(1000);
+            ShooterArm.setPosition(0);
+            Shooter.setPower(1);
+            sleep(500);
+            ShooterArm.setPosition(.259);
+            Shooter.setPower(1);
+            sleep(500);
+            Shooter.setPower(1);
+            ShooterArm.setPosition(0);
+            sleep(500);
+            Shooter.setPower(1);
+            ShooterArm.setPosition(.259);
+            sleep(500);
+            Shooter.setPower(1);
+            ShooterArm.setPosition(0);
+            sleep(500);
+            Shooter.setPower(0);
+            ShooterArm.setPosition(.259);
+            ShootAngle.setPosition(1);
+            sleep(500);
+            Intake.setPower(1);
+            Drive(5,.6);
+            sleep(1500);
+            Drive(2, -.6);
+            Intake.setPower(0);
+            ShootAngle.setPosition(.70);
+            sleep(500);
+            Shooter.setPower(1);
+            sleep(1000);
+            ShooterArm.setPosition(0);
+            sleep(1000);
+            ShooterArm.setPosition(.259);
+            Drive(7,-.6);
+            Drive(5,-.6);
+            Shooter.setPower(0);
+
+
+
+
+
+
+
+
+
         }
         else
         {
@@ -244,24 +338,57 @@ public class RingSense1 extends LinearOpMode
             telemetry.addData("square ","close");
             telemetry.addData( "Rings","None");
             telemetry.update();
-            Strafe(24,-.2);
-            Drive (56,-.2);
+
+
+            ShootAngle.setPosition(.71);
+            Drive(5,-.6);
+            Strafe(20,-.6);
+            Drive (55 ,-.6);
+            Drive(10,.6);
+            Strafe(23,.6);
+            Drive(4,-.6);
+            Shooter.setPower(1);
+            sleep(1000);
+            ShooterArm.setPosition(0);
+            Shooter.setPower(1);
+            sleep(500);
+            ShooterArm.setPosition(.259);
+            Shooter.setPower(1);
+            sleep(500);
+            Shooter.setPower(1);
+            ShooterArm.setPosition(0);
+            sleep(500);
+            Shooter.setPower(1);
+            ShooterArm.setPosition(.259);
+            sleep(500);
+            Shooter.setPower(1);
+            ShooterArm.setPosition(0);
+            sleep(500);
+            Shooter.setPower(0);
+            ShooterArm.setPosition(1);
+            sleep(500);
+            Drive(11,-.6);
+
+
+
+
+
+
         }
+
+
+
+
+
+
+
+
         while (opModeIsActive()){
             telemetry.addData("Analysis", pipeline.getAnalysis());
             telemetry.addData("Position", pipeline.position);
             telemetry.update();
             sleep(50);
         }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -329,8 +456,8 @@ public class RingSense1 extends LinearOpMode
         static final int REGION_WIDTH  = 35;
         static final int REGION_HEIGHT = 25;
           //Threshholds
-        final int FOUR_RING_THRESHOLD = 150;
-        final int ONE_RING_THRESHOLD  = 132;
+        final int FOUR_RING_THRESHOLD = 160;
+        final int ONE_RING_THRESHOLD  = 135;
 
         Point region1_pointA = new Point(
                 REGION1_TOPLEFT_ANCHOR_POINT.x,

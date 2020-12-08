@@ -36,6 +36,7 @@ public class GamerOp extends OpMode {
         Shooter     = hardwareMap.dcMotor.get ( "Shooter     ");
         ShooterArm  = hardwareMap.servo.get   ( "ShooterArm  ");
         ShootAngle  = hardwareMap.servo.get   ( "ShooterAngle");
+
 //------------------------------Direction---------------------------------------------------------\\
 
         //Reverse spins motors to the right Forward spins motors to the left
@@ -69,20 +70,27 @@ public class GamerOp extends OpMode {
         double Strafe = +gamepad1.left_stick_x ;
         double Turn   = +gamepad1.right_stick_x;
         double Speed  = 1;
+        double SpeedTurn = .75;
+
+
+
+
 
         if (gamepad1.right_bumper)
         {
             Speed = .5;
+            SpeedTurn = .5;
         }
         else
         {
             Speed = 1;
+            SpeedTurn = .75;
         }
 
-        LeftFront  .setPower( + Drive - Strafe * Speed + Turn);
-        LeftRear   .setPower( + Drive + Strafe * Speed + Turn);
-        RightFront .setPower( + Drive - Strafe * Speed - Turn);
-        RightRear  .setPower( + Drive + Strafe * Speed - Turn);
+        LeftFront  .setPower( - Drive + Strafe * Speed + Turn * SpeedTurn);
+        LeftRear   .setPower( - Drive - Strafe * Speed + Turn * SpeedTurn);
+        RightFront .setPower( - Drive - Strafe * Speed - Turn * SpeedTurn);
+        RightRear  .setPower( - Drive + Strafe * Speed - Turn * SpeedTurn);
 
         telemetry.addData("Lf",LeftFront  .getCurrentPosition());
         telemetry.addData("LR",LeftRear   .getCurrentPosition());
@@ -109,10 +117,24 @@ public class GamerOp extends OpMode {
         }
 
 
+        if(gamepad2.right_trigger > .1)
+        {
+            Intake.setPower(1);
+        }
+        else if (gamepad2.left_trigger > .1)
+        {
+            Intake.setPower(-1);
+        }
+        else
+        {
+            Intake.setPower(0);
+        }
+
+
 
 //------------------------------Shooter-----------------------------------------------------------\\
 
-        if (gamepad1.left_bumper)
+        if (gamepad2.left_bumper)
         {
             Shooter.setPower(1);
         }
@@ -121,7 +143,7 @@ public class GamerOp extends OpMode {
             Shooter.setPower(0);
         }
 
-        if (gamepad1.a)
+        if (gamepad2.right_bumper)
         {
             ShooterArm.setPosition(0.005);
         }
@@ -130,14 +152,21 @@ public class GamerOp extends OpMode {
             ShooterArm.setPosition(.259);
         }
 
-        if (gamepad1.dpad_up)
+        if (gamepad2.dpad_up)
         {
             ShootAngle.setPosition(0.7);
         }
-        else if (gamepad1.dpad_down)
+        else if (gamepad2.dpad_down)
         {
             ShootAngle.setPosition(1);
+        }else if (gamepad2.dpad_right)
+        {
+            ShootAngle.setPosition(.725);
+        }else if (gamepad2.dpad_left)
+        {
+            ShootAngle.setPosition(.75);
         }
+
 
 //------------------------------Wobble------------------------------------------------------------\\
 
